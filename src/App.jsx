@@ -37,6 +37,29 @@ function TypingText({ words }) {
 }
 
 function App() {
+  const [activeSection, setActiveSection] = useState("home");
+
+  useEffect(() => {
+    const sections = ["home", "projects", "certificates", "about", "contact"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const projects = [
     {
       title: "Fade Barbershop",
@@ -61,25 +84,50 @@ function App() {
     },
   ];
 
+  const certificates = [
+    {
+      title: "Exploratory Data Analysis for Machine Learning",
+      issuer: "IBM (via Coursera)",
+      date: "31 Oktober 2025",
+      verify: "https://coursera.org/verify/NYFY2W631MU1",
+    },
+    {
+      title: "Supervised Machine Learning: Regression",
+      issuer: "IBM (via Coursera)",
+      date: "31 Oktober 2025",
+      verify: "https://coursera.org/verify/KHHWBRX5ZM0C",
+    },
+    {
+      title: "Supervised Machine Learning: Classification",
+      issuer: "IBM (via Coursera)",
+      date: "14 November 2025",
+      verify: "https://coursera.org/verify/SM26WOOE87FY",
+    },
+  ];
+
   const skills = ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Git & GitHub", "REST API", "Responsive Design", "Vite"];
+
+  const navLinkClass = (id) => `transition hover:text-accent ${activeSection === id ? "text-accent" : ""}`;
 
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navbar */}
       <nav className="fixed top-0 w-full bg-black/80 backdrop-blur-sm z-50 border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <span className="font-bold text-accent tracking-wide">ROHMAN</span>
-          <div className="flex gap-6 text-sm">
-            <a href="#home" className="hover:text-accent transition">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-end items-center">
+          <div className="flex gap-8 text-sm">
+            <a href="#home" className={navLinkClass("home")}>
               Home
             </a>
-            <a href="#projects" className="hover:text-accent transition">
+            <a href="#projects" className={navLinkClass("projects")}>
               Projects
             </a>
-            <a href="#about" className="hover:text-accent transition">
+            <a href="#certificates" className={navLinkClass("certificates")}>
+              Sertifikat
+            </a>
+            <a href="#about" className={navLinkClass("about")}>
               About
             </a>
-            <a href="#contact" className="hover:text-accent transition">
+            <a href="#contact" className={navLinkClass("contact")}>
               Contact
             </a>
           </div>
@@ -87,7 +135,7 @@ function App() {
       </nav>
 
       {/* Hero */}
-      <section id="home" className="max-w-6xl mx-auto px-6 pt-32 pb-20 flex flex-col md:flex-row items-center gap-16">
+      <section id="home" className="scroll-mt-20 min-h-screen flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto px-6 pt-20">
         <div className="flex flex-col items-center">
           <h3 className="text-accent font-semibold tracking-[3px] mb-6 uppercase">Rohman</h3>
           <div className="relative w-64 h-80 md:w-80 md:h-[26rem] rounded-[80%] overflow-hidden border-[3.5px] border-accent flex items-center justify-center bg-gray-900" style={{ boxShadow: "0 0 50px rgba(224, 90, 71, 0.55)" }}>
@@ -116,7 +164,13 @@ function App() {
             >
               <i className="fab fa-github text-lg"></i>
             </a>
-            <a href="mailto:sofairohman27@gmail.com" aria-label="Email" className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center text-accent hover:bg-accent hover:text-black transition hover:-translate-y-1">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=sofairohman27@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email"
+              className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center text-accent hover:bg-accent hover:text-black transition hover:-translate-y-1"
+            >
               <i className="fas fa-envelope text-lg"></i>
             </a>
             <a
@@ -137,15 +191,15 @@ function App() {
       </section>
 
       {/* Projects */}
-      <section id="projects" className="max-w-6xl mx-auto px-6 py-20">
+      <section id="projects" className="scroll-mt-20 min-h-[calc(100vh-5rem)] flex flex-col justify-center max-w-6xl mx-auto px-6 py-16 text-center">
         <h2 className="text-2xl font-bold mb-2">
-          <span className="text-accent">/</span> Project
+          <span className="text-accent">Project</span>
         </h2>
         <p className="text-gray-400 mb-10">Beberapa project yang sudah saya kerjakan dan deploy.</p>
 
         <div className="grid md:grid-cols-3 gap-6">
           {projects.map((p) => (
-            <div key={p.title} className="bg-gray-900 rounded-xl p-6 border border-white/10 hover:border-accent/50 transition flex flex-col">
+            <div key={p.title} className="bg-gray-900 rounded-xl p-6 border border-white/10 hover:border-accent/50 transition flex flex-col text-left">
               <h3 className="text-lg font-bold mb-2">{p.title}</h3>
               <p className="text-gray-400 text-sm mb-4 flex-1">{p.description}</p>
               <div className="flex flex-wrap gap-2 mb-4">
@@ -168,16 +222,40 @@ function App() {
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="max-w-6xl mx-auto px-6 py-20">
+      {/* Certificates */}
+      <section id="certificates" className="scroll-mt-20 min-h-[calc(100vh-5rem)] flex flex-col justify-center items-center text-center max-w-6xl mx-auto px-6 py-16">
         <h2 className="text-2xl font-bold mb-2">
-          <span className="text-accent">/</span> Tentang Saya
+          <span className="text-accent">Certificate</span>
         </h2>
-        <p className="text-gray-400 mb-8 max-w-2xl leading-relaxed">
+        <p className="text-gray-400 mb-10">Sertifikat pembelajaran yang sudah saya selesaikan.</p>
+
+        <div className="grid md:grid-cols-3 gap-6 w-full">
+          {certificates.map((c) => (
+            <div key={c.title} className="bg-gray-900 rounded-xl p-6 border border-white/10 hover:border-accent/50 transition flex flex-col text-left">
+              <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent flex items-center justify-center mb-4 text-accent">
+                <i className="fas fa-certificate"></i>
+              </div>
+              <h3 className="text-base font-bold mb-2">{c.title}</h3>
+              <p className="text-gray-400 text-sm mb-1">{c.issuer}</p>
+              <p className="text-gray-500 text-xs mb-4">{c.date}</p>
+              <a href={c.verify} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm font-semibold mt-auto">
+                Verifikasi →
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* About */}
+      <section id="about" className="scroll-mt-20 min-h-[calc(100vh-5rem)] flex flex-col justify-center items-center text-center max-w-6xl mx-auto px-6 py-16">
+        <h2 className="text-2xl font-bold mb-2">
+          <span className="text-accent">About Me</span>
+        </h2>
+        <p className="text-gray-400 mb-8 max-w-2xl leading-relaxed mx-auto">
           Saya sedang membangun karier sebagai Frontend Developer dengan fokus pada React dan pengembangan antarmuka yang responsif. Saya suka menerjemahkan ide menjadi tampilan web yang rapi dan mudah digunakan, dan terus belajar praktik
           terbaik dalam pengembangan web modern.
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 justify-center">
           {skills.map((s) => (
             <span key={s} className="text-sm bg-gray-900 border border-accent/40 px-3 py-1.5 rounded-full text-gray-200">
               {s}
@@ -187,13 +265,13 @@ function App() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="max-w-6xl mx-auto px-6 py-20 text-center">
+      <section id="contact" className="scroll-mt-20 min-h-[calc(100vh-5rem)] flex flex-col justify-center max-w-6xl mx-auto px-6 py-16 text-center">
         <h2 className="text-2xl font-bold mb-2">
-          <span className="text-accent">/</span> Mari Terhubung
+          <span className="text-accent">Contact</span>
         </h2>
         <p className="text-gray-400 mb-8">Terbuka untuk peluang kerja, kolaborasi, atau sekadar diskusi.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="mailto:sofairohman27@gmail.com" className="px-6 py-3 bg-accent hover:bg-accent-dark rounded-lg font-semibold transition">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sofairohman27@gmail.com" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-accent hover:bg-accent-dark rounded-lg font-semibold transition">
             Email: sofairohman27@gmail.com
           </a>
           <a href="https://wa.me/6281225779801" target="_blank" rel="noopener noreferrer" className="px-6 py-3 border border-accent text-accent hover:bg-accent hover:text-black rounded-lg font-semibold transition">
