@@ -73,7 +73,7 @@ function App() {
       title: "Movie Search",
       description: "Aplikasi pencarian film menggunakan TMDB API. Ada fitur trending, search, dan detail modal lengkap dengan genre & sinopsis.",
       tech: ["React", "Tailwind CSS", "REST API"],
-      demo: "https://movie-search-k3vif3duk-rohman.vercel.app",
+      demo: "https://movie-search-beta-ochre.vercel.app/",
       github: "https://github.com/Rohman82/movie-search",
     },
     {
@@ -182,36 +182,6 @@ function App() {
             Saya membangun antarmuka web yang bersih, responsif, dan fungsional menggunakan React dan Tailwind CSS. Fokus pada detail dan pengalaman pengguna yang nyaman digunakan.
           </p>
 
-          <div className="flex gap-5 justify-center md:justify-start mb-8">
-            <a
-              href="https://github.com/Rohman82"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center text-accent hover:bg-accent hover:text-black transition hover:-translate-y-1"
-            >
-              <i className="fab fa-github text-lg"></i>
-            </a>
-            <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=sofairohman27@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Email"
-              className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center text-accent hover:bg-accent hover:text-black transition hover:-translate-y-1"
-            >
-              <i className="fas fa-envelope text-lg"></i>
-            </a>
-            <a
-              href="https://wa.me/6281225779801"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp"
-              className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center text-accent hover:bg-accent hover:text-black transition hover:-translate-y-1"
-            >
-              <i className="fab fa-whatsapp text-lg"></i>
-            </a>
-          </div>
-
           <a href="#contact" className="inline-block px-10 py-3.5 bg-accent hover:bg-accent-dark rounded-lg font-semibold transition hover:scale-[1.02]">
             Hire me
           </a>
@@ -298,12 +268,33 @@ function App() {
           <span className="text-accent">Contact</span>
         </h2>
         <p className="text-gray-400 mb-8">Terbuka untuk peluang kerja, kolaborasi, atau sekadar diskusi.</p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sofairohman27@gmail.com" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-accent hover:bg-accent-dark rounded-lg font-semibold transition">
-            Email: sofairohman27@gmail.com
+        <div className="flex gap-5 justify-center mb-8">
+          <a
+            href="https://github.com/Rohman82"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center text-accent hover:bg-accent hover:text-black transition hover:-translate-y-1"
+          >
+            <i className="fab fa-github text-lg"></i>
           </a>
-          <a href="https://wa.me/6281225779801" target="_blank" rel="noopener noreferrer" className="px-6 py-3 border border-accent text-accent hover:bg-accent hover:text-black rounded-lg font-semibold transition">
-            WhatsApp
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=sofairohman27@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Email"
+            className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center text-accent hover:bg-accent hover:text-black transition hover:-translate-y-1"
+          >
+            <i className="fas fa-envelope text-lg"></i>
+          </a>
+          <a
+            href="https://wa.me/6281225779801"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp"
+            className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center text-accent hover:bg-accent hover:text-black transition hover:-translate-y-1"
+          >
+            <i className="fab fa-whatsapp text-lg"></i>
           </a>
         </div>
       </section>
