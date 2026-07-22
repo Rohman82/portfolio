@@ -38,6 +38,7 @@ function TypingText({ words }) {
 
 function App() {
   const [activeSection, setActiveSection] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const sections = ["home", "projects", "certificates", "about", "contact"];
@@ -114,7 +115,8 @@ function App() {
       {/* Navbar */}
       <nav className="fixed top-0 w-full bg-black/80 backdrop-blur-sm z-50 border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-end items-center">
-          <div className="flex gap-8 text-sm">
+          {/* Nav link versi desktop */}
+          <div className="hidden md:flex gap-8 text-sm">
             <a href="#home" className={navLinkClass("home")}>
               Home
             </a>
@@ -131,7 +133,33 @@ function App() {
               Contact
             </a>
           </div>
+
+          {/* Tombol hamburger, cuma muncul di mobile  */}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-accent text-2xl" aria-label="Toggle menu">
+            <i className={`fas ${menuOpen ? "fa-times" : "fa-bars"}`}></i>
+          </button>
         </div>
+
+        {/* Dropdown menu mobile */}
+        {menuOpen && (
+          <div className="md:hidden flex flex-col items-center gap-5 py-6 bg-black/95 border-t border-white/10 text-sm">
+            <a href="#home" onClick={() => setMenuOpen(false)} className={navLinkClass("home")}>
+              Home
+            </a>
+            <a href="#projects" onClick={() => setMenuOpen(false)} className={navLinkClass("projects")}>
+              Projects
+            </a>
+            <a href="#certificates" onClick={() => setMenuOpen(false)} className={navLinkClass("certificates")}>
+              Sertifikat
+            </a>
+            <a href="#about" onClick={() => setMenuOpen(false)} className={navLinkClass("about")}>
+              About
+            </a>
+            <a href="#contact" onClick={() => setMenuOpen(false)} className={navLinkClass("contact")}>
+              Contact
+            </a>
+          </div>
+        )}
       </nav>
 
       {/* Hero */}
