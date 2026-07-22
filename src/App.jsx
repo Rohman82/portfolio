@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import avatarImg from "./assets/Gambar.jpg";
+import avatarImg from "./assets/Gambar.jpeg";
 
 function TypingText({ words }) {
   const [text, setText] = useState("");
